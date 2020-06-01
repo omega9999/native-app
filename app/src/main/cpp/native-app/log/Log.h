@@ -1,30 +1,38 @@
 #pragma once
+
 #include <android/log.h>
-#include <iostream>
-#include <stdio.h>      /* printf */
-#include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
+#include <string>
 
 using namespace std;
+
+
+// predefined macros: https://en.cppreference.com/w/cpp/preprocessor/replace
+
+#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+#define LOG_TAG_PREFIX "c++: "
+#define LOG_TAG_SUFFIX  __FILENAME__
+#define LOG_TAG  strcat(strcpy(new char[strlen(LOG_TAG_PREFIX) + strlen(LOG_TAG_SUFFIX) + 1],LOG_TAG_PREFIX),LOG_TAG_SUFFIX)
+#define LOGV(...)  __android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, __VA_ARGS__)
+#define LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
+#define LOGI(...)  __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+#define LOGW(...)  __android_log_print(ANDROID_LOG_WARN, LOG_TAG, __VA_ARGS__)
+#define LOGE(...)  __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+#define LOGF(...)  __android_log_print(ANDROID_LOG_FATAL, LOG_TAG, __VA_ARGS__)
 
 class Log {
 public:
     static void v(std::string tag, std::string text);
+
     static void d(std::string tag, std::string text);
+
     static void i(std::string tag, std::string text);
+
     static void w(std::string tag, std::string text);
+
     static void e(std::string tag, std::string text);
+
     static void f(std::string tag, std::string text);
 };
-
-#define LOG_TAG_PREFIX "c++: "
-#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
-#define  LOG_TAG   /* LOG_TAG_PREFIX */ __FILENAME__
-#define  LOGV(...)  __android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, __VA_ARGS__)
-#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
-#define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
-#define  LOGW(...)  __android_log_print(ANDROID_LOG_WARN, LOG_TAG, __VA_ARGS__)
-#define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
-#define  LOGF(...)  __android_log_print(ANDROID_LOG_FATAL, LOG_TAG, __VA_ARGS__)
 
 
 /*
