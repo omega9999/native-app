@@ -9,6 +9,7 @@ using namespace std;
 // predefined macros: https://en.cppreference.com/w/cpp/preprocessor/replace
 
 #define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+#define __FILENAME_NO_EXT__ (strrchr(__FILENAME__, '.') ? strrchr(__FILENAME__, '.') + 1 : __FILENAME__)
 #define LOG_TAG_PREFIX "c++: "
 #define LOG_TAG_SUFFIX  __FILENAME__
 #define LOG_TAG  strcat(strcpy(new char[strlen(LOG_TAG_PREFIX) + strlen(LOG_TAG_SUFFIX) + 1],LOG_TAG_PREFIX),LOG_TAG_SUFFIX)

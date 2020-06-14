@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,17 +16,25 @@ public class MainActivity extends AppCompatActivity {
         // Example of a call to a native method
         TextView tv = findViewById(R.id.sample_text);
         tv.setText(new NativeManager().stringFromJNI());
+
+        new ProvaSparseArray();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
+        /*
         int no = Integer.parseInt(new NativeManager().stringNumber());
         if (new NativeManager().isPrime(no)) {
             Toast.makeText(this, "Prime Number: " + no, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Not Prime Number: " + no, Toast.LENGTH_SHORT).show();
         }
+
+         */
+
+        final NativeManager manager = new NativeManager();
+        //manager.logPrimeNumbers();
     }
 }
