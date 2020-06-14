@@ -1,14 +1,9 @@
 cmake_minimum_required(VERSION 3.4.1)
-add_library( # Sets the name of the library.
-        native-lib
-        # Sets the library as a shared library.
-        SHARED
-        # Provides a relative path to your source file(s).
-        native-app/native-lib.cpp
-        native-app/prime/PrimeNumber.cpp
-        native-app/log/Log.cpp
-        native-app/callback/ObserverChain.cpp
-        )
+
+# create variable SOURCES with all file *.cpp into sub-directory native-app
+file(GLOB_RECURSE SOURCES "native-app/*.cpp")
+
+add_library(native-lib SHARED ${SOURCES})
 
 find_library( # Sets the name of the path variable.
         log-lib
