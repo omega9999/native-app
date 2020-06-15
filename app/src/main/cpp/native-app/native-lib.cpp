@@ -32,6 +32,7 @@ JNIEXPORT jint JNICALL JNI_OnLoad( JavaVM * jvm, void * reserved )
     JNIEnv * env = nullptr;
     gJavaVM = jvm;
 
+    LOGV("JNI_OnLoad is Main Thread ? %s",getpid() == gettid() ? "true" : "false");
 
     LOGV("isPrime verbose, Address of x is %p", (void *) &jvm);
     LOGD("isPrime debug %d", 3);

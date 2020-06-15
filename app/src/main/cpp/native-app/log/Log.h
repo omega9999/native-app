@@ -2,6 +2,7 @@
 
 #include <android/log.h>
 #include <string>
+#include <unistd.h>
 
 using namespace std;
 

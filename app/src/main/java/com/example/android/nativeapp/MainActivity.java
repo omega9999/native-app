@@ -3,6 +3,7 @@ package com.example.android.nativeapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Looper;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        //check main thread java
+        Log.v(TAG, "is Main Thread ? %1$s",(Looper.myLooper() == Looper.getMainLooper()));
+
         /*
         int no = Integer.parseInt(new NativeManager().stringNumber());
         if (new NativeManager().isPrime(no)) {
@@ -37,4 +41,6 @@ public class MainActivity extends AppCompatActivity {
         final NativeManager manager = new NativeManager();
         //manager.logPrimeNumbers();
     }
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 }
