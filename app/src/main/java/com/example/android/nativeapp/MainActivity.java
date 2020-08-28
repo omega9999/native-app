@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         TextView tv = findViewById(R.id.sample_text);
         tv.setText(new NativeManager().stringFromJNI());
 
-        new ProvaSparseArray();
+        //new ProvaSparseArray();
     }
 
     @Override
@@ -39,8 +39,12 @@ public class MainActivity extends AppCompatActivity {
          */
 
         final NativeManager manager = new NativeManager();
-        //manager.logPrimeNumbers();
+        manager.create();
+        manager.logPrimeNumbers();
+        manager.destroy();
     }
+
+
 
     private static final String TAG = MainActivity.class.getSimpleName();
 }

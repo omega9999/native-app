@@ -119,27 +119,26 @@ Java_com_example_android_nativeapp_NativeManager_numberOfObjects(JNIEnv *env, jo
 
 extern "C"
 JNIEXPORT jlong JNICALL
-Java_com_example_android_nativeapp_NativeManager_createNativeObject(JNIEnv *env, jobject thiz,
-                                                                    jint number) {
-    PrimeNumber* pointer = (PrimeNumber*)malloc(sizeof(PrimeNumber));
-    PrimeNumber prime(number);
-    pointer[0] = prime;
+Java_com_example_android_nativeapp_NativeManager_createNativeObject(JNIEnv *env, jclass clazz, jint number) {
+    PrimeNumber* pointer = new PrimeNumber(number);
+    if (!pointer) {
+        //jniThrowRuntimeException(env, "Unable to allocate native PrimeNumber");
+        return 0;
+    }
+    //pointer->incStrong(env);
     return reinterpret_cast<jlong>(pointer);
 }
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_android_nativeapp_NativeManager_destroyNativeObject(JNIEnv *env, jobject thiz,
-                                                                     jlong reference) {
+Java_com_example_android_nativeapp_NativeManager_destroyNativeObject(JNIEnv *env, jclass clazz, jlong reference) {
     PrimeNumber *pointer = reinterpret_cast<PrimeNumber *>(reference);
-    pointer->~PrimeNumber();
-    free(pointer);
-    delete[] pointer;
+    //pointer->~PrimeNumber();
+    delete pointer;
 }
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_android_nativeapp_NativeManager_logNativeObject(JNIEnv *env, jobject thiz,
-                                                                 jlong reference) {
+Java_com_example_android_nativeapp_NativeManager_logNativeObject(JNIEnv *env, jclass clazz, jlong reference) {
     PrimeNumber *pointer = reinterpret_cast<PrimeNumber *>(reference);
     LOGV("%d is isPrime? %s", pointer->GetNumber(), pointer->isPrime() ? "true" : "false");
 }
@@ -165,3 +164,6 @@ Java_com_example_android_nativeapp_NativeManager_getSize(JNIEnv *env, jobject th
     return objectSize;
     */
 }
+
+
+

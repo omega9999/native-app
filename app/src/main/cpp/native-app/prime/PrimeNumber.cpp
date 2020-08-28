@@ -10,7 +10,7 @@ PrimeNumber::~PrimeNumber() {
 }
 
 bool PrimeNumber::isPrime() {
-    LOGV("isPrime into function %s","prova");
+    //LOGV("isPrime into function %s","prova");
     bool isPrime = true;
     for (int i = 2; i <= _number / 2; i++) {
         if (_number % i == 0) {
