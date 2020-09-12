@@ -1,10 +1,10 @@
 #include "PrimeNumber.h"
-#include "../log/Log.h"
 
 PrimeNumber::PrimeNumber(int num) {
     LOGV("PrimeNumber constructor of %d", num);
     _number = num;
 }
+
 PrimeNumber::~PrimeNumber() {
     LOGV("PrimeNumber destructor of %d", _number);
 }

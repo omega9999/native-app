@@ -15,15 +15,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Example of a call to a native method
-        TextView tv = findViewById(R.id.sample_text);
+        TextView tv = findViewById(R.id.sample_text1);
         tv.setText(new NativeManager().stringFromJNI());
 
         //new ProvaSparseArray();
+
+        Log.v(TAG,"Number of cores %1$s", nativeManager1.getNumberOfCores());
+        Log.v(TAG,"BuildVersion %1$s", NativeManager.getBuildVersion());
+        Log.v(TAG,"BuildVersion %1$s", NativeManager.getRuntimeMemorySize());
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
+        TextView tv1 = findViewById(R.id.sample_text1);
+        nativeManager1.addListenerValue(value -> runOnUiThread(() -> tv1.setText(tv1.getText() + "\n"+value)));
+        nativeManager1.startTest("manager 1");
+
+        TextView tv2 = findViewById(R.id.sample_text2);
+        nativeManager2.addListenerValue(value -> runOnUiThread(() -> tv2.setText(tv2.getText() + "\n"+value)));
+        nativeManager2.startTest("manager 2");
 
         //check main thread java
         Log.v(TAG, "is Main Thread ? %1$s",(Looper.myLooper() == Looper.getMainLooper()));
@@ -38,13 +50,30 @@ public class MainActivity extends AppCompatActivity {
 
          */
 
+        /*
         final NativeManager manager = new NativeManager();
-        manager.create();
+        manager.createTest();
         manager.logPrimeNumbers();
-        manager.destroy();
+        manager.destroyTest();
+
+         */
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        nativeManager1.removeListenerValue();
+        nativeManager1.destroy();
+
+        nativeManager2.removeListenerValue();
+        nativeManager2.destroy();
     }
 
 
+
+    private NativeManager nativeManager1 = new NativeManager();
+    private NativeManager nativeManager2 = new NativeManager();
 
     private static final String TAG = MainActivity.class.getSimpleName();
 }

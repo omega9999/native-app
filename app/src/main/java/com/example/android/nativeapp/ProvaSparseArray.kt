@@ -2,6 +2,8 @@ package com.example.android.nativeapp
 
 import android.util.SparseArray
 import objectexplorer.ObjectGraphMeasurer
+import org.apache.commons.lang3.SerializationUtils
+//import org.openjdk.jol.vm.VM
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.ObjectOutputStream
@@ -11,8 +13,15 @@ import kotlin.collections.LinkedHashMap
 import kotlin.math.pow
 
 
+/*
+System.identityHashCode(object) (hash code di object != indirizzo di memoria)
+https://github.com/eugenp/tutorials/tree/master/core-java-modules/core-java-jvm-2
+
+https://openjdk.java.net/projects/code-tools/jol/
+implementation "org.openjdk.jol:jol-core:0.10"
 
 
+ */
 /*
 risultati dimensione oggetti:
 tag	obj	ref	length	class	size_serial
@@ -46,6 +55,8 @@ class ProvaSparseArray internal constructor() {
                 objectOutputStream.flush()
                 objectOutputStream.close()
                 val byteArray = byteArrayOutputStream.toByteArray()
+                //SerializationUtils.serialize(obj).size
+
                 return byteArray.size
             }
             else{
@@ -56,14 +67,15 @@ class ProvaSparseArray internal constructor() {
         private fun log(key : String, length : Int, obj : Any?){
             val measure = ObjectGraphMeasurer.measure(obj)
             //measure.
-            Log.v(TAG, "%s\t%s\t%s\t%s\t%s\t%s\t%s", key, measure.objects, measure.references, length, obj?.javaClass?.simpleName, sizeOf(obj), nativeManager.getSize(obj))
+            Log.v(TAG, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s", key, measure.objects, measure.references, length, obj?.javaClass?.simpleName, sizeOf(obj), nativeManager.getSize(obj), /*VM.current().sizeOf(obj)*/0)
         }
     }
 
     private val list: MutableMap<String,Any> =  mutableMapOf()
     init {
         Thread {
-            Log.v(TAG, "tag\tobj\tref\tlength\tclass\tsize_serial\tsize_native")
+            //Log.v(TAG,"VM detail: %s\n", VM.current().details())
+            Log.v(TAG, "tag\tobj\tref\tlength\tclass\tsize_serial\tsize_native\tsize_VM")
             val test = Test(10.0, true, "1",null, 10, 10, 10.0F)
             test.test = test
             log("Test", 0, test)

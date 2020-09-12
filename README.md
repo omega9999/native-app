@@ -1,6 +1,13 @@
 NativeApp
 
 
+
+c++: looper e funzioni lambda
+https://www.codeproject.com/Articles/1169105/Cplusplus-std-thread-Event-Loop-with-Message-Queue
+https://docs.microsoft.com/it-it/cpp/cpp/lambda-expressions-in-cpp?view=vs-2019
+
+
+
 http://www.cplusplus.com/reference/clibrary/
 
 https://developer.android.com/training/articles/perf-jni#java

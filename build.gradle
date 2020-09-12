@@ -25,5 +25,6 @@ allprojects {
 }
 
 task clean(type: Delete) {
+    delete new File(rootProject.projectDir.absolutePath + "/app/.cxx")
     delete rootProject.buildDir
 }
